@@ -17,11 +17,12 @@ pipeline {
     }
   }
 
-   stage('Publish Firebase Web') {
+   stage('upload artifacts to S3') {
       steps {
-      echo 'firebase deploy --token "Your Token Key"'
-   }
+         withAWS(region:'us-east-1',credentials:'angular-aws') {
+            s3Upload(file:'dist', bucket:'com.test.compare-userinfo', path:'')
+         }
+      }
   }
-
  }
 }

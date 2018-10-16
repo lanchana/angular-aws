@@ -19,7 +19,7 @@ pipeline {
 
    stage('upload artifacts to S3') {
       steps {
-         withAWS(region:'us-east-1',credentials:'angular-aws') {
+         withAWS(region:'us-east-1',credentials:'jenkins-angular-aws') {
             s3Upload(file:'dist', bucket:'com.test.compare-userinfo', path:'')
          }
       }

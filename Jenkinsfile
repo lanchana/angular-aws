@@ -39,4 +39,18 @@ pipeline {
           }
        }
    }
+   post {
+      success {
+          echo 'Build successful'
+          mail to: 'lanchanagupta@gmail.com',
+                       subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+                       body: "Something is wrong with ${env.BUILD_URL}"
+      }
+      failure {
+          echo 'Build failure'
+          mail to: 'lanchanagupta@gmail.com',
+                                 subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+                                 body: "Something is wrong with ${env.BUILD_URL}"
+      }
+   }
 }

@@ -18,16 +18,18 @@ pipeline {
       }
 
        stage('upload artifacts to S3') {
-          if(env.BRANCH_NAME == 'master') {
-              steps {
-                    withAWS(region:'us-east-1',profile:'jenkins-angular-aws') {
-                        s3Upload(file:'dist', bucket:'com.test.compare-userinfo', path:'')
-                    }
-              }
-          } else if(env.BRANCH_NAME == 'development') {
-              steps {
-                  withAWS(region:'us-east-1',profile:'jenkins-angular-aws') {
-                      s3Upload(file:'dist', bucket:'com.test.compare-userinfo', path:'')
+          script {
+              if(env.BRANCH_NAME == 'master') {
+                  steps {
+                        withAWS(region:'us-east-1',profile:'jenkins-angular-aws') {
+                            s3Upload(file:'dist', bucket:'com.test.compare-userinfo', path:'')
+                        }
+                  }
+              } else if(env.BRANCH_NAME == 'development') {
+                  steps {
+                      withAWS(region:'us-east-1',profile:'jenkins-angular-aws') {
+                          s3Upload(file:'dist', bucket:'com.test.compare-userinfo', path:'')
+                      }
                   }
               }
           }

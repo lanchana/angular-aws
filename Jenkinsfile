@@ -13,8 +13,14 @@ pipeline {
 
       stage('Stage Web Build') {
           steps {
-              sh 'npm run build:prod'
-        }
+              script {
+                  if(env.BRANCH_NAME == 'master') {
+                      sh 'npm run build:prod'
+                  } else {
+                      sh 'npm run build:staging'
+                  }
+              }
+          }
       }
 
        stage('upload artifacts to S3') {

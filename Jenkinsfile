@@ -23,7 +23,7 @@ pipeline {
           }
       }
 
-       stage('delete artifacts from S3') {
+       /* stage('delete artifacts from S3') {
           steps {
                         script {
                             if(env.BRANCH_NAME == 'master') {
@@ -37,7 +37,7 @@ pipeline {
                             }
                         }
                     }
-       }
+       } */
 
        stage('upload artifacts to S3') {
           steps {

@@ -23,6 +23,22 @@ pipeline {
           }
       }
 
+       stage('delete artifacts from S3') {
+          steps {
+                        script {
+                            if(env.BRANCH_NAME == 'master') {
+                                withAWS(region:'us-east-1',profile:'jenkins-angular-aws') {
+                                    s3Delete(bucket:'com.test.compare-userinfo', path:'')
+                                }
+                            } else if(env.BRANCH_NAME == 'development') {
+                                withAWS(region:'us-east-1',profile:'jenkins-angular-aws') {
+                                    s3Delete(bucket:'com.test.compare-userinfo', path:'')
+                                }
+                            }
+                        }
+                    }
+       }
+
        stage('upload artifacts to S3') {
           steps {
               script {
